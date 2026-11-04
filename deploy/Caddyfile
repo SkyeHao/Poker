@@ -1,0 +1,27 @@
+# Example Caddy site for the sub-path deployment.
+#
+# The client is built with POKER_BASE=/poker/ and PUBLIC_URL must include
+# /poker, so this block strips the prefix before proxying to the app:
+#   /poker/api/room  ->  /api/room
+#   /poker/ws        ->  /ws
+# WebSocket upgrades are proxied automatically by reverse_proxy.
+#
+# If 80/443 are unavailable and the certificate only covers the bare domain,
+# bind the public port here (e.g. :8443) and set PUBLIC_URL to match.
+
+poker.example.com {
+    encode zstd gzip
+
+    # Optional: send the site root to the table.
+    @root path /
+    redir @root /poker/ 302
+
+    handle_path /poker/* {
+        reverse_proxy 127.0.0.1:3100
+    }
+
+    # Optional outer gate in front of the invite system.
+    # basic_auth {
+    #     friends $2a$14$replace-with-a-caddy-hash
+    # }
+}

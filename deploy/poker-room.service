@@ -1,0 +1,26 @@
+[Unit]
+Description=Poker Room (Fastify + WebSocket)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=poker
+Group=poker
+WorkingDirectory=/srv/poker
+Environment=NODE_ENV=production
+EnvironmentFile=/srv/poker/poker.env
+ExecStart=/usr/bin/node /srv/poker/dist/server.js
+Restart=on-failure
+RestartSec=3
+UMask=0077
+
+# Hardening: the app only writes to DATA_DIR.
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/srv/poker/data
+
+[Install]
+WantedBy=multi-user.target

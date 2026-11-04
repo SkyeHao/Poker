@@ -1,0 +1,191 @@
+{
+  "version": 1,
+  "backs": [
+    {
+      "id": "red",
+      "label": "Red"
+    },
+    {
+      "id": "blue",
+      "label": "Blue"
+    },
+    {
+      "id": "yellow",
+      "label": "Yellow"
+    },
+    {
+      "id": "green",
+      "label": "Green"
+    },
+    {
+      "id": "black",
+      "label": "Black"
+    },
+    {
+      "id": "magic",
+      "label": "Magic"
+    },
+    {
+      "id": "nebula",
+      "label": "Nebula"
+    },
+    {
+      "id": "ghost",
+      "label": "Ghost"
+    },
+    {
+      "id": "abandoned",
+      "label": "Abandoned"
+    },
+    {
+      "id": "checkered",
+      "label": "Checkered"
+    },
+    {
+      "id": "zodiac",
+      "label": "Zodiac"
+    },
+    {
+      "id": "painted",
+      "label": "Painted"
+    },
+    {
+      "id": "anaglyph",
+      "label": "Anaglyph"
+    },
+    {
+      "id": "plasma",
+      "label": "Plasma"
+    },
+    {
+      "id": "erratic",
+      "label": "Erratic"
+    },
+    {
+      "id": "challenge",
+      "label": "Challenge"
+    }
+  ],
+  "faces": [
+    {
+      "suit": "spades",
+      "id": "witcher-3",
+      "label": "The Witcher III"
+    },
+    {
+      "suit": "spades",
+      "id": "cyberpunk-2077",
+      "label": "Cyberpunk 2077"
+    },
+    {
+      "suit": "spades",
+      "id": "shovel-knight",
+      "label": "Shovel Knight"
+    },
+    {
+      "suit": "spades",
+      "id": "dont-starve",
+      "label": "Don't Starve"
+    },
+    {
+      "suit": "spades",
+      "id": "assassins-creed",
+      "label": "Assassin's Creed"
+    },
+    {
+      "suit": "spades",
+      "id": "slay-the-princess",
+      "label": "Slay the Princess"
+    },
+    {
+      "suit": "hearts",
+      "id": "among-us",
+      "label": "Among Us"
+    },
+    {
+      "suit": "hearts",
+      "id": "binding-of-isaac",
+      "label": "Binding of Isaac"
+    },
+    {
+      "suit": "hearts",
+      "id": "cult-of-the-lamb",
+      "label": "Cult of the Lamb"
+    },
+    {
+      "suit": "hearts",
+      "id": "divinity-os-2",
+      "label": "Divinity: Original Sin 2"
+    },
+    {
+      "suit": "hearts",
+      "id": "critical-role",
+      "label": "Critical Role"
+    },
+    {
+      "suit": "hearts",
+      "id": "bugsnax",
+      "label": "Bugsnax"
+    },
+    {
+      "suit": "clubs",
+      "id": "vampire-survivors",
+      "label": "Vampire Survivors"
+    },
+    {
+      "suit": "clubs",
+      "id": "slay-the-spire",
+      "label": "Slay the Spire"
+    },
+    {
+      "suit": "clubs",
+      "id": "potion-craft",
+      "label": "Potion Craft"
+    },
+    {
+      "suit": "clubs",
+      "id": "warframe",
+      "label": "Warframe"
+    },
+    {
+      "suit": "clubs",
+      "id": "dead-by-daylight",
+      "label": "Dead by Daylight"
+    },
+    {
+      "suit": "clubs",
+      "id": "fallout",
+      "label": "Fallout"
+    },
+    {
+      "suit": "diamonds",
+      "id": "dave-the-diver",
+      "label": "Dave the Diver"
+    },
+    {
+      "suit": "diamonds",
+      "id": "stardew-valley",
+      "label": "Stardew Valley"
+    },
+    {
+      "suit": "diamonds",
+      "id": "enter-the-gungeon",
+      "label": "Enter the Gungeon"
+    },
+    {
+      "suit": "diamonds",
+      "id": "1000xresist",
+      "label": "1000xRESIST"
+    },
+    {
+      "suit": "diamonds",
+      "id": "civilization-vii",
+      "label": "Civilization VII"
+    },
+    {
+      "suit": "diamonds",
+      "id": "rust",
+      "label": "Rust"
+    }
+  ]
+}
