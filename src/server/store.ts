@@ -1,7 +1,7 @@
 import { appendFile, mkdir, readFile, rename, writeFile } from 'node:fs/promises'
 import path from 'node:path'
 import type { RoomState } from '../room/room.ts'
-import { normalizeCosmetics } from '../room/types.ts'
+import { EMPTY_COSMETICS, normalizeCosmetics } from '../room/types.ts'
 
 export interface AdminAccount {
   username: string
@@ -143,6 +143,7 @@ export class Store {
 }
 
 function restoreRoom(room: RoomState): RoomState {
+  const override = room.tableCosmetics == null ? null : normalizeCosmetics(room.tableCosmetics)
   return {
     ...room,
     players: room.players.map(player => ({
@@ -150,7 +151,10 @@ function restoreRoom(room: RoomState): RoomState {
       connected: false,
       cosmetics: normalizeCosmetics(player.cosmetics),
     })),
-    tableCosmetics: room.tableCosmetics == null ? null : normalizeCosmetics(room.tableCosmetics),
+    // Older rooms could pin face cards too; only the back is still honoured.
+    tableCosmetics: override === null || override.back === ''
+      ? null
+      : { back: override.back, faces: EMPTY_COSMETICS.faces },
     paused: room.phase === 'playing' ? true : room.paused,
   }
 }

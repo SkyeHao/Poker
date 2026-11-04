@@ -371,12 +371,13 @@ test('cosmetics round-trip over the socket and the admin can pin a table style',
         type: 'admin',
         command: {
           type: 'setTableCosmetics',
-          cosmetics: { back: '', faces: { spades: '', hearts: 'among-us', clubs: '', diamonds: '' } },
+          cosmetics: { back: 'zodiac', faces: { spades: '', hearts: 'among-us', clubs: '', diamonds: '' } },
         },
       })
-      const pinned = await client.waitAfter(mark, message => message.type === 'view' && message.view.cosmetics.faces.hearts === 'among-us')
-      assert.equal(pinned.view.cosmetics.back, 'red', 'an unpinned slot keeps the personal back')
-      assert.notEqual(pinned.view.cosmeticsOverride, null)
+      const pinned = await client.waitAfter(mark, message => message.type === 'view' && message.view.cosmetics.back === 'zodiac')
+      assert.equal(pinned.view.cosmetics.faces.spades, 'witcher-3', 'face cards stay personal')
+      assert.equal(pinned.view.cosmetics.faces.hearts, '', 'a face pin in the payload is ignored')
+      assert.equal(pinned.view.cosmeticsOverride?.back, 'zodiac')
 
       mark = client.messages.length
       client.send({ type: 'admin', command: { type: 'setTableCosmetics', cosmetics: null } })

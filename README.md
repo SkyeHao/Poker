@@ -87,7 +87,7 @@ Open <http://localhost:5173>. The room starts invite-only, so either:
 
 The client ships with 16 deck backs and 24 *Friends of Jimbo* face sets (72 face cards). They live in `src/client/assets/card-art/` and are imported at build time (`import.meta.glob` + `?url`), so Vite inlines the small ones as data URIs and emits the rest into `dist/public/assets/`. Anything that ships `dist/` therefore carries the art with it — there is no separate folder to copy and no runtime manifest request.
 
-Each player picks a card back and one face set per suit from the in-table **Style** button; the in-table admin key can pin a table-wide style that overrides every player. Both are stored on the room record, so they survive reconnects and restarts.
+Each player picks a card back and one face set per suit from the in-table **Style** button. Face cards always stay personal; the in-table admin key can only pin the table card back for everyone. Both are stored on the room record, so they survive reconnects and restarts.
 
 ```
 src/client/assets/card-art/

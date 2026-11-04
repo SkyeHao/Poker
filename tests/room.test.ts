@@ -643,19 +643,21 @@ test('players keep their own cosmetics and an admin override only fills the pinn
   assert.equal(invalid.error?.code, 'invalid-cosmetics')
   assert.equal(invalid.room, room)
 
-  const pinned = { back: '', faces: { spades: '', hearts: 'among-us', clubs: '', diamonds: '' } }
-  const pinnedResult = apply(room, {
+  const pinned = { back: 'zodiac', faces: { spades: '', hearts: 'among-us', clubs: '', diamonds: '' } }
+  room = must(apply(room, {
     type: 'adminSetTableCosmetics',
     actor: { kind: 'tableKey', label: 'p1' },
     cosmetics: pinned,
-  }, env)
-  room = must(pinnedResult)
+  }, env))
   const adaView = viewFor(room, ada.id)
-  assert.equal(adaView.cosmetics.back, 'plasma', 'unpinned slots keep the personal choice')
-  assert.equal(adaView.cosmetics.faces.hearts, 'among-us', 'pinned slots win')
+  assert.equal(adaView.cosmetics.back, 'zodiac', 'the pinned back wins')
+  assert.equal(adaView.cosmetics.faces.hearts, mine.faces.hearts, 'face cards stay personal')
   assert.equal(adaView.cosmetics.faces.spades, 'witcher-3')
-  assert.deepEqual(adaView.cosmeticsOverride, pinned)
-  assert.equal(viewFor(room, bo.id).cosmetics.faces.hearts, 'among-us')
+  assert.equal(viewFor(room, bo.id).cosmetics.back, 'zodiac')
+  assert.equal(viewFor(room, bo.id).cosmetics.faces.hearts, '')
+
+  // Face pins from an older room are dropped, not applied.
+  assert.deepEqual(adaView.cosmeticsOverride?.faces, { spades: '', hearts: '', clubs: '', diamonds: '' })
 
   room = must(apply(room, {
     type: 'adminSetTableCosmetics',
@@ -664,5 +666,6 @@ test('players keep their own cosmetics and an admin override only fills the pinn
   }, env))
   assert.equal(viewFor(room, ada.id).cosmeticsOverride, null)
   assert.deepEqual(viewFor(room, ada.id).cosmetics, mine)
+  assert.equal(viewFor(room, bo.id).cosmetics.back, '')
   assert.equal(viewFor(room, bo.id).cosmetics.faces.hearts, '')
 })

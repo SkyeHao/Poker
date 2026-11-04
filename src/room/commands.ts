@@ -666,14 +666,23 @@ function handleSetCosmetics(room: RoomState, command: Extract<RoomCommand, { typ
   return { room: { ...room, players }, events: [] }
 }
 
-/** Table-wide override; an empty field keeps each player's own choice for that slot. */
+/**
+ * Admins can only pin the card back; face cards are personal, so the faces in
+ * the incoming payload are dropped and legacy face pins are cleared.
+ */
 function handleAdminSetTableCosmetics(room: RoomState, command: Extract<RoomCommand, { type: 'adminSetTableCosmetics' }>): Outcome {
   const denied = requireActor(command.actor)
   if (denied !== null) return { error: denied }
-  const next = command.cosmetics
-  if (next !== null && !validCosmetics(next)) return fail('invalid-cosmetics', 'Cosmetics id is invalid')
+  const requested = command.cosmetics
+  if (requested !== null && !validCosmetics(requested)) return fail('invalid-cosmetics', 'Cosmetics id is invalid')
+  const next = requested === null || requested.back === ''
+    ? null
+    : { back: requested.back, faces: EMPTY_COSMETICS.faces }
   const current = room.tableCosmetics
   if (current === null && next === null) return { room, events: [] }
-  if (current !== null && next !== null && sameCosmetics(current, next)) return { room, events: [] }
+  if (current !== null && next !== null && current.back === next.back) {
+    if (sameCosmetics(current, next)) return { room, events: [] }
+    return { room: { ...room, tableCosmetics: next }, events: [] }
+  }
   return { room: { ...room, tableCosmetics: next }, events: [] }
 }

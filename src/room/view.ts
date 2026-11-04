@@ -78,21 +78,15 @@ export interface RoomView {
   cosmeticsOverride: Cosmetics | null
 }
 
-/** Field-by-field merge: an override only wins where it sets a value. */
+/**
+ * Only the card back can be pinned by an admin. Face cards stay a personal
+ * choice, so any face values left in an older override are ignored.
+ */
 function resolveCosmetics(room: RoomState, player: PlayerRecord | undefined): Cosmetics {
   const own = player?.cosmetics ?? EMPTY_COSMETICS
   const override = room.tableCosmetics
-  if (override === null) return own
-  const pick = (forced: string, mine: string): string => (forced !== '' ? forced : mine)
-  return {
-    back: pick(override.back, own.back),
-    faces: {
-      spades: pick(override.faces.spades, own.faces.spades),
-      hearts: pick(override.faces.hearts, own.faces.hearts),
-      clubs: pick(override.faces.clubs, own.faces.clubs),
-      diamonds: pick(override.faces.diamonds, own.faces.diamonds),
-    },
-  }
+  if (override === null || override.back === '') return own
+  return { back: override.back, faces: own.faces }
 }
 
 function lobbyPlayer(room: RoomState, player: PlayerRecord, viewerId: string | null): LobbyPlayer {

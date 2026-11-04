@@ -178,7 +178,7 @@
 - 目录结构：`manifest.json`（`{ backs: [{id,label}], faces: [{suit,id,label}] }`）、`backs/<id>.png`（71×95）、`faces/<suit>-<id>.png`（426×190，J/Q/K 各 142×190）。由 `node scripts/build-card-art.mjs` 从 `assets-private/` 的原始下载生成。
 - 清单只发布包里真实存在的文件；素材缺失时外观按钮隐藏，自动回落到 CSS 文本牌。
 - `PlayerRecord.cosmetics` 保存个人选择：一个牌背 id + 每花色一个人头牌组 id（`''` = 默认）。它属于展示状态，不参与 `version` 计算，也不进 `didTableStateChange`。
-- `RoomState.tableCosmetics` 由牌桌密钥设置：逐字段覆盖，留空字段回落到玩家自己的选择；`null` 清除覆盖。覆盖只影响渲染，不影响发牌与结算。
+- `RoomState.tableCosmetics` 由牌桌密钥设置，且**只覆盖牌背**：人头牌始终由玩家自己选，管理端不再提供人头牌设置；载荷里带的人头牌字段会被丢弃，旧房间残留的人头牌覆盖在加载时清除。`null` 清除覆盖。覆盖只影响渲染，不影响发牌与结算。
 - 客户端按花色取三连图，`background-size: 300% 100%` + `background-position: 0/50/100%` 裁切；牌背用单图铺满，`image-rendering: pixelated` 保持像素边缘。
 - 素材版权归各自权利人（Balatro 牌背、Friends of Jimbo 联名角色）：私人牌桌自用即可，不要把仓库或构建产物公开分发。
 

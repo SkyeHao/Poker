@@ -156,6 +156,7 @@ export function AdminPanel({ view, send, t, catalog, unlocked, onUnlocked, onClo
             <CosmeticsPicker
               catalog={catalog}
               value={view.cosmeticsOverride ?? EMPTY_COSMETICS}
+              allowFaces={false}
               onChange={cosmetics => { admin({ type: 'setTableCosmetics', cosmetics }) }}
               t={t}
             />
